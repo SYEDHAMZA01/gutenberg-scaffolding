@@ -14,6 +14,40 @@ const { PanelBody, PanelRow,
 export const BBPadding = (props) => {
     
     return <PanelBody title={__(props.name, 'blocks-bakery')} initialOpen={true}>
-    <TextControl onChange={(e)=>props.setAttributes({[props.attributePrefix+"_padding"]:e})} />
+    {/* <TextControl  onChange={(e)=>props.setAttributes({[props.attributePrefix+"_padding"]:e})} /> */}
+    <RangeControl
+                            label="Wrapper Padding Top"
+                            min={0}
+                            max={100}
+                            step={0.1}
+                            initialPosition={0}
+                            value={props.attributePrefix+"_pt_wrap"}
+                            onChange={(e)=>props.setAttributes({[props.attributePrefix+"_pt_wrap"]:e})}
+                        />
+
+    <RangeControl
+                            label="Wrapper Padding Right"
+                            min={0}
+                            max={100}
+                            step={0.1}
+                            initialPosition={0}
+                            value={props.attributePrefix+"_pr_wrap"}
+                        />
+    <RangeControl
+                            label="Wrapper Padding Bottom"
+                            min={0}
+                            max={100}
+                            step={0.1}
+                            initialPosition={0}
+                            value={props.attributePrefix+"_pb_wrap"}
+                        />
+    <RangeControl
+                            label="Wrapper Padding Left"
+                            min={0}
+                            max={100}
+                            step={0.1}
+                            initialPosition={0}
+                            value={props.attributePrefix+"_pl_wrap"}
+                        />                    
 </PanelBody>
 }
