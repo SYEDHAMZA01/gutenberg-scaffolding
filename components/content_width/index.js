@@ -29,6 +29,7 @@ const {
   Card,
   CardBody,
   Button,
+  ButtonGroup,
   AlignmentMatrixControl,
   AnglePickerControl,
   ColorGradientControl,
@@ -86,12 +87,15 @@ export default (props) => {
             <div style={{ marginTop: "30px", marginBottom: "30px" }}>
               <span style={{ marginRight: "10px" }}>Border Width</span>
 
+            <ButtonGroup>
               <Button
                 variant="primary"
                 style={{ cursor: "pointer" }}
                 onClick={(e) => responsiveChange("desktop", setAttributes)}
                 icon="laptop"
               />
+
+
 
               <Button
                 variant="secondary"
@@ -106,6 +110,7 @@ export default (props) => {
                 onClick={(e) => responsiveChange("mobile", setAttributes)}
                 icon="smartphone"
               />
+             </ButtonGroup> 
             </div>
           </div>
           <RangeControl
@@ -126,9 +131,6 @@ export default (props) => {
       ) : (
         "not found"
       )}
-      <BaseControl id="textarea-1" label="Text" help="Enter some text">
-		<textarea id="textarea-1" />
-	</BaseControl>
     </PanelBody>
   );
   return { attrs, content };

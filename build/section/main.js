@@ -634,6 +634,7 @@ var _wp$components = wp.components,
     Card = _wp$components.Card,
     CardBody = _wp$components.CardBody,
     Button = _wp$components.Button,
+    ButtonGroup = _wp$components.ButtonGroup,
     AlignmentMatrixControl = _wp$components.AlignmentMatrixControl,
     AnglePickerControl = _wp$components.AnglePickerControl,
     ColorGradientControl = _wp$components.ColorGradientControl,
@@ -689,7 +690,7 @@ var _wp$components = wp.components,
       style: {
         marginRight: "10px"
       }
-    }, "Border Width"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
+    }, "Border Width"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ButtonGroup, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
       variant: "primary",
       style: {
         cursor: "pointer"
@@ -716,7 +717,7 @@ var _wp$components = wp.components,
         return Object(_main__WEBPACK_IMPORTED_MODULE_2__["responsiveChange"])("mobile", setAttributes);
       },
       icon: "smartphone"
-    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RangeControl, {
+    })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RangeControl, {
       min: 500,
       max: 1600,
       value: Object(_main__WEBPACK_IMPORTED_MODULE_2__["getAttribute"])(attributes, props.prefix, "max_type", attributes.deviceSelection),
@@ -724,13 +725,7 @@ var _wp$components = wp.components,
       onChange: function onChange(new_val) {
         return setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, "".concat(props.prefix, "_max"), new_val));
       }
-    })) : "not found", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(BaseControl, {
-      id: "textarea-1",
-      label: "Text",
-      help: "Enter some text"
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("textarea", {
-      id: "textarea-1"
-    })));
+    })) : "not found");
   };
 
   return {
