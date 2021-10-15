@@ -3,7 +3,6 @@
  * @see https://github.com/WordPress/gutenberg/tree/master/blocks#api
  */
 
-import { BBPadding } from '../../components/spacing';
 import { blockBakeryRegisterBlock, getAttribute } from '../../main';
 const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
@@ -41,8 +40,37 @@ blockBakeryRegisterBlock(blockSlug, {
         },
         {
             name: "Margin",
-            prefix: "child_margin"
+            prefix: "margin"
         }],
+        
+        contentWidth:{
+            name: "Content Width",
+            prefix: "width"
+        },
+        height:{
+            name: "Height",
+            prefix: "height"
+        },
+        columnPosition:{
+            name: "Column Position",
+            prefix: "column_position"
+        },
+        columnGap:{
+            name: "Columns Gap",
+            prefix: "columns_gap"
+        },
+        verticalAlignment:{
+            name: "Vertical Alignment",
+            prefix: "vertical_alignment"
+        },
+        overflow:{
+            name: "Overflow",
+            prefix: "overflow"
+        },
+        htmlTags:{
+            name: "HTML Tags",
+            prefix: "html_tags"
+        },  
         background: {
             name: "Background Parent",
             prefix: "bg_abc_parent"
@@ -54,13 +82,16 @@ blockBakeryRegisterBlock(blockSlug, {
             default: "yellow",
             type: "string"
         },
+        deviceSelection:{
+            type: 'string',
+            default: 'desktop'
+        },
         someText: {
             type: 'string',
             source: 'html',
             selector: 'h2',
             default: "Write Something"
         },
-
     },
 
     /**
@@ -97,7 +128,7 @@ blockBakeryRegisterBlock(blockSlug, {
                 </InspectorControls>
                 <>
                     <h1>Padding Attribute Update</h1>
-                    <p>{getAttribute(attributes, 'padding', 'top')}</p>
+                    <p>{getAttribute(attributes, 'padding', 'ALL' , 'TOP')}</p>
                     <p>Top {attributes[`${attributes.mainPrefix}_padding_top`]}px</p>
                     <p>Right {attributes[`${attributes.mainPrefix}_padding_right`]}px</p>
                     <p>bottom {attributes[`${attributes.mainPrefix}_padding_bottom`]}px</p>
