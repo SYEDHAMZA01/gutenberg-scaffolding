@@ -36,7 +36,8 @@ blockBakeryRegisterBlock(blockSlug, {
     modules: {
         spacing: [{
             name: "Padding",
-            prefix: "padding"
+            prefix: "padding",
+            
         },
         {
             name: "Margin",

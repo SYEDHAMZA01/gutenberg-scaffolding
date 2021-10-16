@@ -675,7 +675,7 @@ var _wp$components = wp.components,
         value: "full_width"
       }],
       onChange: function onChange(nextValues) {
-        return setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, "".concat(props.prefix, "_type"), nextValues));
+        return Object(_main__WEBPACK_IMPORTED_MODULE_2__["setAttributesCustom"])(setAttributes, nextValues, attributes, props.prefix, "type");
       }
     }))), Object(_main__WEBPACK_IMPORTED_MODULE_2__["getAttribute"])(attributes, props.prefix, "type") === "boxed" ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
       style: {
@@ -690,40 +690,16 @@ var _wp$components = wp.components,
       style: {
         marginRight: "10px"
       }
-    }, "Border Width"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ButtonGroup, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
-      variant: "primary",
-      style: {
-        cursor: "pointer"
-      },
-      onClick: function onClick(e) {
-        return Object(_main__WEBPACK_IMPORTED_MODULE_2__["responsiveChange"])("desktop", setAttributes);
-      },
-      icon: "laptop"
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
-      variant: "secondary",
-      style: {
-        cursor: "pointer"
-      },
-      onClick: function onClick(e) {
-        return Object(_main__WEBPACK_IMPORTED_MODULE_2__["responsiveChange"])("tablet", setAttributes);
-      },
-      icon: "tablet"
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
-      variant: "primary",
-      style: {
-        cursor: "pointer"
-      },
-      onClick: function onClick(e) {
-        return Object(_main__WEBPACK_IMPORTED_MODULE_2__["responsiveChange"])("mobile", setAttributes);
-      },
-      icon: "smartphone"
-    })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RangeControl, {
+    }, "Border Width"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_main__WEBPACK_IMPORTED_MODULE_2__["ResponsiveButtonGroup"], {
+      attributes: attributes,
+      setAttributes: setAttributes
+    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RangeControl, {
       min: 500,
       max: 1600,
-      value: Object(_main__WEBPACK_IMPORTED_MODULE_2__["getAttribute"])(attributes, props.prefix, "max_type", attributes.deviceSelection),
+      value: Object(_main__WEBPACK_IMPORTED_MODULE_2__["getAttribute"])(attributes, props.prefix, "max"),
       step: 1,
-      onChange: function onChange(new_val) {
-        return setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, "".concat(props.prefix, "_max"), new_val));
+      onChange: function onChange(value) {
+        return Object(_main__WEBPACK_IMPORTED_MODULE_2__["setAttributesCustom"])(setAttributes, value, attributes, props.prefix, 'max');
       }
     })) : "not found");
   };
@@ -1240,7 +1216,7 @@ var _wp$components = wp.components,
 /*!*****************!*\
   !*** ./main.js ***!
   \*****************/
-/*! exports provided: blockBakeryRegisterBlock, responsiveChange, getAttribute, getResponsiveMode */
+/*! exports provided: blockBakeryRegisterBlock, responsiveChange, getAttribute, attributesCompared, ResponsiveButtonGroup, setAttributesCustom, getResponsiveMode */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1248,6 +1224,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "blockBakeryRegisterBlock", function() { return blockBakeryRegisterBlock; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "responsiveChange", function() { return responsiveChange; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getAttribute", function() { return getAttribute; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "attributesCompared", function() { return attributesCompared; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ResponsiveButtonGroup", function() { return ResponsiveButtonGroup; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setAttributesCustom", function() { return setAttributesCustom; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getResponsiveMode", function() { return getResponsiveMode; });
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
@@ -1294,6 +1273,14 @@ var _wp$editor = wp.editor,
     MediaUpload = _wp$editor.MediaUpload,
     MediaUploadCheck = _wp$editor.MediaUploadCheck,
     InnerBlocks = _wp$editor.InnerBlocks;
+var _wp$components = wp.components,
+    Button = _wp$components.Button,
+    ButtonGroup = _wp$components.ButtonGroup,
+    AlignmentMatrixControl = _wp$components.AlignmentMatrixControl,
+    AnglePickerControl = _wp$components.AnglePickerControl,
+    ColorGradientControl = _wp$components.ColorGradientControl,
+    __experimentalGradientPicker = _wp$components.__experimentalGradientPicker,
+    ColorPicker = _wp$components.ColorPicker;
 var MAMD_PLUGIN_INFO = {
   name: "BB",
   slug: "blocks-bakery",
@@ -1475,13 +1462,60 @@ var responsiveChange = function responsiveChange(device, setAttributes) {
   }
 };
 var getAttribute = function getAttribute(attributes, prefix, itemName) {
-  var device = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : "desktop";
-  var withHover = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
-  var addSuffixDeviceName = device === "tablet" ? "_tablet" : device === "mobile" ? "_mobile" : "";
+  var withHover = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+  var addSuffixDeviceName = attributes.deviceSelection === "tablet" ? "_tablet" : attributes.deviceSelection === "mobile" ? "_mobile" : "";
   var addSuffixHover = withHover ? "_hover" : "";
   console.log("GetAttribute", "".concat(prefix, "_").concat(itemName).concat(addSuffixDeviceName).concat(addSuffixHover));
   console.log("GetAttribute Value", attributes["".concat(prefix, "_").concat(itemName).concat(addSuffixDeviceName).concat(addSuffixHover)] || attributes["".concat(prefix, "_").concat(itemName)]);
   return attributes["".concat(prefix, "_").concat(itemName).concat(addSuffixDeviceName).concat(addSuffixHover)] || attributes["".concat(prefix, "_").concat(itemName)];
+};
+var attributesCompared = function attributesCompared(attributes, key, value) {
+  console.log(attributes[key] === value, attributes, key);
+  return attributes[key] === value;
+};
+var ResponsiveButtonGroup = function ResponsiveButtonGroup(_ref2) {
+  var attributes = _ref2.attributes,
+      setAttributes = _ref2.setAttributes;
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ButtonGroup, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
+    variant: attributesCompared(attributes, 'deviceSelection', 'desktop') ? 'primary' : 'secondary',
+    isPressed: attributesCompared(attributes, 'deviceSelection', 'desktop'),
+    style: {
+      cursor: "pointer"
+    },
+    onClick: function onClick(e) {
+      return responsiveChange("desktop", setAttributes);
+    },
+    icon: "laptop"
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
+    variant: attributesCompared(attributes, 'deviceSelection', 'tablet') ? 'primary' : 'secondary',
+    isPressed: attributesCompared(attributes, 'deviceSelection', 'tablet'),
+    style: {
+      cursor: "pointer"
+    },
+    onClick: function onClick(e) {
+      return responsiveChange("tablet", setAttributes);
+    },
+    icon: "tablet"
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
+    variant: attributesCompared(attributes, 'deviceSelection', 'mobile') ? 'primary' : 'secondary',
+    isPressed: attributesCompared(attributes, 'deviceSelection', 'mobile'),
+    style: {
+      cursor: "pointer"
+    },
+    onClick: function onClick(e) {
+      return responsiveChange("mobile", setAttributes);
+    },
+    icon: "smartphone"
+  }));
+};
+var setAttributesCustom = function setAttributesCustom(setAttributes, value, attributes, prefix, itemName) {
+  var withHover = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : false;
+  var addSuffixDeviceName = attributes.deviceSelection === "tablet" ? "_tablet" : attributes.deviceSelection === "mobile" ? "_mobile" : "";
+  var addSuffixHover = withHover ? "_hover" : "";
+  console.log("setATtribute Prefix", "".concat(prefix, "_").concat(itemName).concat(addSuffixDeviceName).concat(addSuffixHover));
+  console.log("setATtribute key", ["".concat(prefix, "_").concat(itemName).concat(addSuffixDeviceName).concat(addSuffixHover)] || ["".concat(prefix, "_").concat(itemName)]);
+  var keyName = ["".concat(prefix, "_").concat(itemName).concat(addSuffixDeviceName).concat(addSuffixHover)] || ["".concat(prefix, "_").concat(itemName)];
+  return setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, keyName, value));
 };
 var getResponsiveMode = function getResponsiveMode(dataArray) {
   var hover = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;

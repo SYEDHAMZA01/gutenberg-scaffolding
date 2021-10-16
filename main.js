@@ -20,6 +20,14 @@ const {
   InnerBlocks,
 } = wp.editor;
 
+const {Button,ButtonGroup,
+  AlignmentMatrixControl,
+  AnglePickerControl,
+  ColorGradientControl,
+  __experimentalGradientPicker,
+  ColorPicker,
+} = wp.components;
+
 const MAMD_PLUGIN_INFO = {
   name: "BB",
   slug: "blocks-bakery",
@@ -204,11 +212,10 @@ export const getAttribute = (
   attributes,
   prefix,
   itemName,
-  device = "desktop",
   withHover = false
 ) => {
   let addSuffixDeviceName =
-    device === "tablet" ? "_tablet" : device === "mobile" ? "_mobile" : "";
+  attributes.deviceSelection === "tablet" ? "_tablet" : attributes.deviceSelection === "mobile" ? "_mobile" : "";
   let addSuffixHover = withHover ? "_hover" : "";
   console.log("GetAttribute",`${prefix}_${itemName}${addSuffixDeviceName}${addSuffixHover}`)
 
@@ -220,6 +227,61 @@ export const getAttribute = (
       `${prefix}_${itemName}${addSuffixDeviceName}${addSuffixHover}`
     ] || attributes[`${prefix}_${itemName}`]
   );
+};
+
+export const attributesCompared = (attributes,key,value)=>{
+  console.log(attributes[key] === value,attributes,key)
+  return attributes[key] === value;
+};
+
+export const ResponsiveButtonGroup = ({attributes,setAttributes})=> <ButtonGroup>
+<Button
+  variant={attributesCompared(attributes,'deviceSelection','desktop') ? 'primary' :'secondary'}
+  isPressed={attributesCompared(attributes,'deviceSelection','desktop')}
+  style={{ cursor: "pointer" }}
+  onClick={(e) => responsiveChange("desktop", setAttributes)}
+  icon="laptop"
+/>
+
+
+
+<Button
+  variant={attributesCompared(attributes,'deviceSelection','tablet') ? 'primary' :'secondary'}
+  isPressed={attributesCompared(attributes,'deviceSelection','tablet')}
+  style={{ cursor: "pointer" }}
+  onClick={(e) => responsiveChange("tablet", setAttributes)}
+  icon="tablet"
+/>
+
+<Button
+  variant={attributesCompared(attributes,'deviceSelection','mobile') ? 'primary' :'secondary'}
+  isPressed={attributesCompared(attributes,'deviceSelection','mobile')}
+  style={{ cursor: "pointer" }}
+  onClick={(e) => responsiveChange("mobile", setAttributes)}
+  icon="smartphone"
+/>
+</ButtonGroup> 
+
+export const setAttributesCustom = (
+  setAttributes,
+  value,
+  attributes,
+  prefix,
+  itemName,
+  withHover = false
+) => {
+  let addSuffixDeviceName =
+  attributes.deviceSelection === "tablet" ? "_tablet" : attributes.deviceSelection === "mobile" ? "_mobile" : "";
+  let addSuffixHover = withHover ? "_hover" : "";
+  console.log("setATtribute Prefix",`${prefix}_${itemName}${addSuffixDeviceName}${addSuffixHover}`)
+
+  console.log("setATtribute key",[
+    `${prefix}_${itemName}${addSuffixDeviceName}${addSuffixHover}`
+  ] || [`${prefix}_${itemName}`]);
+  let keyName = [
+    `${prefix}_${itemName}${addSuffixDeviceName}${addSuffixHover}`
+  ] || [`${prefix}_${itemName}`] ;
+  return (setAttributes({[keyName]: value})  );
 };
 
 

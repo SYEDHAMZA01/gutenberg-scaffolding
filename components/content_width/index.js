@@ -1,5 +1,5 @@
 // import "./style.scss";
-import { getAttribute, getResponsiveMode, responsiveChange } from "../../main";
+import { getAttribute, getResponsiveMode, responsiveChange, setAttributesCustom, ResponsiveButtonGroup } from "../../main";
 
 const { __ } = wp.i18n; // Import __() from wp.i18n
 const { __experimentalBoxControl } = wp.components;
@@ -75,7 +75,8 @@ export default (props) => {
               { label: "Full Width", value: "full_width" },
             ]}
             onChange={(nextValues) =>
-              setAttributes({ [`${props.prefix}_type`]: nextValues })
+              setAttributesCustom(setAttributes,nextValues,attributes, props.prefix, "type")
+              
             }
           />
         </div>
@@ -86,31 +87,8 @@ export default (props) => {
           <div style={{ display: "flex" }}>
             <div style={{ marginTop: "30px", marginBottom: "30px" }}>
               <span style={{ marginRight: "10px" }}>Border Width</span>
-
-            <ButtonGroup>
-              <Button
-                variant="primary"
-                style={{ cursor: "pointer" }}
-                onClick={(e) => responsiveChange("desktop", setAttributes)}
-                icon="laptop"
-              />
-
-
-
-              <Button
-                variant="secondary"
-                style={{ cursor: "pointer" }}
-                onClick={(e) => responsiveChange("tablet", setAttributes)}
-                icon="tablet"
-              />
-
-              <Button
-                variant="primary"
-                style={{ cursor: "pointer" }}
-                onClick={(e) => responsiveChange("mobile", setAttributes)}
-                icon="smartphone"
-              />
-             </ButtonGroup> 
+<ResponsiveButtonGroup attributes={attributes} setAttributes={setAttributes}/>
+           
             </div>
           </div>
           <RangeControl
@@ -118,13 +96,12 @@ export default (props) => {
             max={1600}
             value={getAttribute(
               attributes,
-              props.prefix,
-              "max_type",
-              attributes.deviceSelection
+              props.prefix, 
+              "max"
             )}
             step={1}
-            onChange={(new_val) =>
-              setAttributes({ [`${props.prefix}_max`]: new_val })
+            onChange={(value) =>
+              setAttributesCustom(setAttributes,value,attributes,props.prefix,'max')
             }
           />
         </div>
